@@ -66,6 +66,20 @@ export function computeMonthlyData(
     });
 }
 
+export function formatPeriod(movements: FinancialMovement[]): string {
+  const years = [...new Set(movements.map((movement) => movement.create_date.slice(0, 4)))].sort();
+
+  if (years.length === 0) {
+    return "No period";
+  }
+
+  if (years.length === 1) {
+    return `${years[0]} - Full Year`;
+  }
+
+  return `${years[0]} - ${years[years.length - 1]}`;
+}
+
 export function formatCurrency(value: number): string {
   return new Intl.NumberFormat("en-US", {
     style: "currency",
